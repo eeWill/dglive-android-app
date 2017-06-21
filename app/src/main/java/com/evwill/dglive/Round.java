@@ -2,6 +2,17 @@ package com.evwill.dglive;
 
 public class Round {
     private Player[] mPlayers;
+    private Score[] mScores;
+    private Course mCourse;
+    private int currentHoleNumber = 1;
+
+    public int getCurrentHoleNumber() {
+        return currentHoleNumber;
+    }
+
+    public void setCurrentHoleNumber(int currentHoleNumber) {
+        this.currentHoleNumber = currentHoleNumber;
+    }
 
     public Player[] getPlayers() {
         return mPlayers;
@@ -27,6 +38,11 @@ public class Round {
         mCourse = course;
     }
 
-    private Score[] mScores;
-    private Course mCourse;
+    public void decrementCurrentHoleNumber() {
+        this.currentHoleNumber = this.currentHoleNumber - 1;
+    }
+
+    public void incrementCurrentHoleNumber() {
+        this.currentHoleNumber = this.currentHoleNumber + 1;
+    }
 }

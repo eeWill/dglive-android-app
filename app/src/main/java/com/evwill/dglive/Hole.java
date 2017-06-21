@@ -6,6 +6,11 @@ public class Hole {
     private String mName;
     private int mOrder;
 
+    Hole(String name, int par) {
+        mName = name;
+        mPar = par;
+    }
+
     public int getPar() {
         return mPar;
     }

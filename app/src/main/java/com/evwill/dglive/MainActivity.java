@@ -22,15 +22,25 @@ public class MainActivity extends AppCompatActivity {
         startRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startRound();
+                startRoundActivity();
             }
         });
 
-
+        settingsPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSettingsActivity();
+            }
+        });
     }
 
-    private void startRound() {
+    private void startRoundActivity() {
         Intent intent = new Intent(this, RoundActivity.class);
+        startActivity(intent);
+    }
+
+    private void startSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
