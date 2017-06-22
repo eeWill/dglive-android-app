@@ -2,7 +2,6 @@ package com.evwill.dglive;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,24 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RoundActivity extends ListActivity implements AdapterHandler {
 
+    @BindView(R.id.previous_hole_button) Button previousHoleButton;
+    @BindView(R.id.next_hole_button) Button nextHoleButton;
+    @BindView(R.id.hole_name_label) TextView holeNameLabel;
+    @BindView(R.id.hole_par_label) TextView holeParLabel;
+    @BindView(R.id.course_name_label) TextView courseNameLabel;
     private Round mRound;
-    private TextView holeNameLabel;
-    private TextView holeParLabel;
-    private TextView courseNameLabel;
-    private Button previousHoleButton;
-    private Button nextHoleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
-        previousHoleButton = (Button)findViewById(R.id.previous_hole_button);
-        nextHoleButton = (Button)findViewById(R.id.next_hole_button);
-        holeNameLabel = (TextView)findViewById(R.id.hole_name_label);
-        holeParLabel = (TextView)findViewById(R.id.hole_par_label);
-        courseNameLabel = (TextView)findViewById(R.id.course_name_label);
+        ButterKnife.bind(this);
 
         //Create course
         Course course = createNewCourse();
