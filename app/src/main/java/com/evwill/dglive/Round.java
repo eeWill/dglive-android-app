@@ -1,7 +1,9 @@
 package com.evwill.dglive;
 
+import java.util.List;
+
 public class Round {
-    private Player[] mPlayers;
+    private List<Player> mPlayers;
     private Course mCourse;
     private int currentHoleNumber = 1;
 
@@ -13,11 +15,11 @@ public class Round {
         this.currentHoleNumber = currentHoleNumber;
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers() {
         return mPlayers;
     }
 
-    public void setPlayers(Player[] players) {
+    public void setPlayers(List<Player> players) {
         mPlayers = players;
     }
 

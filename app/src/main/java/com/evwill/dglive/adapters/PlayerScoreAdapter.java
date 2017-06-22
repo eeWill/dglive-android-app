@@ -28,12 +28,12 @@ public class PlayerScoreAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mRound.getPlayers().length;
+        return mRound.getPlayers().size();
     }
 
     @Override
     public Object getItem(int i) {
-        return mRound.getPlayers()[i];
+        return mRound.getPlayers().get(i);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class PlayerScoreAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        Player player = mRound.getPlayers()[i];
+        Player player = mRound.getPlayers().get(i);
         holder.playerNameLabel.setText(player.getName());
         int holeScore = player.getScores().get(mRound.getCurrentHoleNumber()).getScore();
         holder.playerScoreLabel.setText(String.valueOf(holeScore));

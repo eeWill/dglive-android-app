@@ -66,21 +66,23 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
     @Override
     public void incrementPlayerScore(int playerNumber) {
         int currentHoleNumber = mRound.getCurrentHoleNumber();
-        Score score =  mRound.getPlayers()[playerNumber].getScores().get(currentHoleNumber);
+        Score score =  mRound.getPlayers().get(playerNumber).getScores().get(currentHoleNumber);
         score.incrementScore();
-        mRound.getPlayers()[playerNumber].setScoreByHoleNumber(currentHoleNumber, score);
+        mRound.getPlayers().get(playerNumber).setScoreByHoleNumber(currentHoleNumber, score);
     }
 
     @Override
     public void decrementPlayerScore(int playerNumber) {
         int currentHoleNumber = mRound.getCurrentHoleNumber();
-        Score score =  mRound.getPlayers()[playerNumber].getScores().get(currentHoleNumber);
+        Score score =  mRound.getPlayers().get(playerNumber).getScores().get(currentHoleNumber);
         score.decrementScore();
-        mRound.getPlayers()[playerNumber].setScoreByHoleNumber(currentHoleNumber, score);
+        mRound.getPlayers().get(playerNumber).setScoreByHoleNumber(currentHoleNumber, score);
     }
 
     private Round createNewRound(Course course) {
         //Create some players, this is for development purposes
+        List<Player> players = new ArrayList<>();
+
         Player player = new Player();
         player.setName("Renee");
         player.setScores(createDummyScores(course));
@@ -90,7 +92,10 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         Player player3 = new Player();
         player3.setName("Evan");
         player3.setScores(createDummyScores(course));
-        Player[] players = {player, player2, player3};
+
+        players.add(player);
+        players.add(player2);
+        players.add(player3);
 
         //Create round, add player and course
         Round round = new Round();
