@@ -8,29 +8,32 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.evwill.dglive.AdapterHandler;
 import com.evwill.dglive.Player;
 import com.evwill.dglive.R;
+import com.evwill.dglive.Round;
 
-import org.w3c.dom.Text;
 
 public class PlayerScoreAdapter extends BaseAdapter {
 
+    private AdapterHandler mListener;
     private Context mContext;
-    private Player[] mPlayers;
+    private Round mRound;
 
-    public PlayerScoreAdapter(Context context, Player[] players) {
+    public PlayerScoreAdapter(Context context, Round round) {
+        mListener = ((AdapterHandler)context);
         mContext = context;
-        mPlayers = players;
+        mRound = round;
     }
 
     @Override
     public int getCount() {
-        return mPlayers.length;
+        return mRound.getPlayers().length;
     }
 
     @Override
     public Object getItem(int i) {
-        return mPlayers[i];
+        return mRound.getPlayers()[i];
     }
 
     @Override
@@ -39,22 +42,40 @@ public class PlayerScoreAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         ViewHolder holder = new ViewHolder();
 
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.player_score_row, null);
             holder.playerNameLabel = (TextView) view.findViewById(R.id.player_name_label);
             holder.playerScoreLabel = (TextView) view.findViewById(R.id.player_score_label);
+            holder.increaseScoreButton = (Button) view.findViewById(R.id.increase_score_button);
+            holder.decreaseScoreButton = (Button) view.findViewById(R.id.decrease_score_button);
             view.setTag(holder);
         }
         else {
             holder = (ViewHolder) view.getTag();
         }
 
-        Player player = mPlayers[i];
+        Player player = mRound.getPlayers()[i];
         holder.playerNameLabel.setText(player.getName());
-        holder.playerScoreLabel.setText(String.valueOf(3));
+        int holeScore = player.getScores().get(mRound.getCurrentHoleNumber()).getScore();
+        holder.playerScoreLabel.setText(String.valueOf(holeScore));
+        holder.increaseScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.incrementPlayerScore(i);
+                notifyDataSetChanged();
+            }
+        });
+
+        holder.decreaseScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.decrementPlayerScore(i);
+                notifyDataSetChanged();
+            }
+        });
 
         return view;
     }
@@ -64,7 +85,7 @@ public class PlayerScoreAdapter extends BaseAdapter {
         TextView playerScoreLabel;
         Button increaseScoreButton;
         Button decreaseScoreButton;
-
-
     }
+
+
 }

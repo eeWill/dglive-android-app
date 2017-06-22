@@ -2,8 +2,8 @@ package com.evwill.dglive;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RoundActivity extends ListActivity {
+public class RoundActivity extends ListActivity implements AdapterHandler {
 
     private Round mRound;
     private TextView holeNameLabel;
@@ -32,12 +32,14 @@ public class RoundActivity extends ListActivity {
         holeParLabel = (TextView)findViewById(R.id.hole_par_label);
         courseNameLabel = (TextView)findViewById(R.id.course_name_label);
 
+        //Create course
+        Course course = createNewCourse();
         //Create a new round
-        mRound = createNewRound();
+        mRound = createNewRound(course);
         courseNameLabel.setText(mRound.getCourse().getName());
 
         //List adapter for changing player scores on each hole
-        PlayerScoreAdapter adapter = new PlayerScoreAdapter(this, mRound.getPlayers());
+        final PlayerScoreAdapter adapter = new PlayerScoreAdapter(this, mRound);
         setListAdapter(adapter);
 
         //Set the current hole name and par
@@ -49,6 +51,7 @@ public class RoundActivity extends ListActivity {
             public void onClick(View v) {
                 mRound.decrementCurrentHoleNumber();
                 setCurrentHoleInformation();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -57,22 +60,39 @@ public class RoundActivity extends ListActivity {
             public void onClick(View v) {
                 mRound.incrementCurrentHoleNumber();
                 setCurrentHoleInformation();
+                adapter.notifyDataSetChanged();
             }
         });
     }
 
-    private Round createNewRound() {
+    @Override
+    public void incrementPlayerScore(int playerNumber) {
+        int currentHoleNumber = mRound.getCurrentHoleNumber();
+        Score score =  mRound.getPlayers()[playerNumber].getScores().get(currentHoleNumber);
+        score.incrementScore();
+        mRound.getPlayers()[playerNumber].setScoreByHoleNumber(currentHoleNumber, score);
+    }
+
+    @Override
+    public void decrementPlayerScore(int playerNumber) {
+        int currentHoleNumber = mRound.getCurrentHoleNumber();
+        Score score =  mRound.getPlayers()[playerNumber].getScores().get(currentHoleNumber);
+        score.decrementScore();
+        mRound.getPlayers()[playerNumber].setScoreByHoleNumber(currentHoleNumber, score);
+    }
+
+    private Round createNewRound(Course course) {
         //Create some players, this is for development purposes
         Player player = new Player();
         player.setName("Renee");
+        player.setScores(createDummyScores(course));
         Player player2 = new Player();
         player2.setName("Troy");
+        player2.setScores(createDummyScores(course));
         Player player3 = new Player();
         player3.setName("Evan");
+        player3.setScores(createDummyScores(course));
         Player[] players = {player, player2, player3};
-
-        //Create a course
-        Course course = createNewCourse();
 
         //Create round, add player and course
         Round round = new Round();
@@ -97,8 +117,21 @@ public class RoundActivity extends ListActivity {
         course.setHoles(holes);
         course.setName("Campgaw Greens");
 
-
         return course;
+    }
+
+    private List<Score> createDummyScores(Course course) {
+        List<Hole> holes = course.getHoles();
+        List<Score> scores = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 1; i <= 18; i++) {
+            int randomInt = random.nextInt((6 - 2) + 1) + 2;
+            Score score = new Score(randomInt, holes.get(i - 1));
+            scores.add(score);
+        }
+
+        return scores;
     }
 
     private void setCurrentHoleInformation() {
@@ -110,3 +143,5 @@ public class RoundActivity extends ListActivity {
     }
 
 }
+
+

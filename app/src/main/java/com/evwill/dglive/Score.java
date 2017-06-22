@@ -1,9 +1,13 @@
 package com.evwill.dglive;
 
-class Score {
+public class Score {
     private int mScore;
-    private Player mPlayer;
     private Hole mHole;
+
+    Score (int score, Hole hole) {
+        mScore = score;
+        mHole = hole;
+    }
 
     public int getScore() {
         return mScore;
@@ -13,19 +17,19 @@ class Score {
         mScore = score;
     }
 
-    public Player getPlayer() {
-        return mPlayer;
-    }
-
-    public void setPlayer(Player player) {
-        mPlayer = player;
-    }
-
     public Hole getHole() {
         return mHole;
     }
 
     public void setHole(Hole hole) {
         mHole = hole;
+    }
+
+    public void incrementScore() {
+        mScore = mScore + 1;
+    }
+
+    public void decrementScore() {
+        mScore = mScore - 1;
     }
 }
