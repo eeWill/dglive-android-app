@@ -6,15 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityView {
 
     private Button startRoundButton;
     private Button settingsPageButton;
+
+    MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        presenter = new MainActivityPresenter(this);
 
         startRoundButton = (Button)findViewById(R.id.start_round_button);
         settingsPageButton = (Button)findViewById(R.id.settings_button);
@@ -22,24 +25,26 @@ public class MainActivity extends AppCompatActivity {
         startRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startRoundActivity();
+                presenter.startRoundActivity();
             }
         });
 
         settingsPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startSettingsActivity();
+                presenter.startSettingsActivity();
             }
         });
     }
 
-    private void startRoundActivity() {
+    @Override
+    public void startRoundActivity() {
         Intent intent = new Intent(this, RoundActivity.class);
         startActivity(intent);
     }
 
-    private void startSettingsActivity() {
+    @Override
+    public void startSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }

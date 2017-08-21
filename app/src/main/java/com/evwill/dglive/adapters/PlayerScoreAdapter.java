@@ -13,7 +13,6 @@ import com.evwill.dglive.Player;
 import com.evwill.dglive.R;
 import com.evwill.dglive.Round;
 
-
 public class PlayerScoreAdapter extends BaseAdapter {
 
     private AdapterHandler mListener;
