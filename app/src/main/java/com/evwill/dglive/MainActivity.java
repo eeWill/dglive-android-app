@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
 
-    private Button startRoundButton;
-    private Button settingsPageButton;
+    public Button startRoundButton;
+    public Button settingsPageButton;
 
     MainActivityPresenter presenter;
 
