@@ -1,4 +1,4 @@
-package com.evwill.dglive;
+package com.evwill.dglive.models;
 
 import java.util.List;
 

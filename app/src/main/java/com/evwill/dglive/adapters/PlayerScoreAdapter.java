@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.evwill.dglive.AdapterHandler;
-import com.evwill.dglive.Player;
+import com.evwill.dglive.models.Player;
 import com.evwill.dglive.R;
-import com.evwill.dglive.Round;
+import com.evwill.dglive.models.Round;
 
 public class PlayerScoreAdapter extends BaseAdapter {
 
@@ -58,7 +58,7 @@ public class PlayerScoreAdapter extends BaseAdapter {
 
         Player player = mRound.getPlayers().get(i);
         holder.playerNameLabel.setText(player.getName());
-        int holeScore = player.getScores().get(mRound.getCurrentHoleNumber()).getScore();
+        int holeScore = player.getScores().get(mRound.getCurrentHoleNumber() - 1).getScore();
         holder.playerScoreLabel.setText(String.valueOf(holeScore));
         holder.increaseScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override

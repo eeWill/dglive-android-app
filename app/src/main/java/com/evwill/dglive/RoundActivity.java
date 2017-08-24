@@ -7,6 +7,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.evwill.dglive.adapters.PlayerScoreAdapter;
+import com.evwill.dglive.data.CourseGenerator;
+import com.evwill.dglive.models.Course;
+import com.evwill.dglive.models.Hole;
+import com.evwill.dglive.models.Player;
+import com.evwill.dglive.models.Round;
+import com.evwill.dglive.models.Score;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,7 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
     @BindView(R.id.hole_par_label) TextView holeParLabel;
     @BindView(R.id.course_name_label) TextView courseNameLabel;
     private Round mRound;
+    private CourseGenerator courseGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +37,9 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         setContentView(R.layout.activity_round);
         ButterKnife.bind(this);
 
-        //Create course
-        Course course = createNewCourse();
-        //Create a new round
+        CourseGenerator courseGenerator = new CourseGenerator();
+        Course course = courseGenerator.campgawBlacks();
+
         mRound = createNewRound(course);
         courseNameLabel.setText(mRound.getCourse().getName());
 
@@ -105,24 +112,6 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         return round;
     }
 
-    private Course createNewCourse() {
-        Course course = new Course();
-
-        //Random par for development purposes
-        Random random = new Random();
-        List<Hole> holes = new ArrayList<>();
-        for (int i = 1; i <= 18; i++) {
-            int randomInt = random.nextInt((5 - 3) + 1) + 3;
-            Hole hole = new Hole(String.valueOf(i), randomInt);
-            holes.add(hole);
-        }
-
-        course.setHoles(holes);
-        course.setName("Campgaw Greens");
-
-        return course;
-    }
-
     private List<Score> createDummyScores(Course course) {
         List<Hole> holes = course.getHoles();
         List<Score> scores = new ArrayList<>();
@@ -141,7 +130,7 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         int currentHoleNumber = mRound.getCurrentHoleNumber();
         String currentHoleNumberString = String.valueOf(currentHoleNumber);
         holeNameLabel.setText(currentHoleNumberString);
-        int holePar = mRound.getCourse().getHoles().get(currentHoleNumber).getPar();
+        int holePar = mRound.getCourse().getHoles().get(currentHoleNumber - 1).getPar();
         holeParLabel.setText(String.valueOf(holePar));
     }
 

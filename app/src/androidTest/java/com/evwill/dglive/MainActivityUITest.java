@@ -21,7 +21,7 @@ public class MainActivityUITest {
 
     @Test
     public void startRoundActivity() throws Exception {
-        String otherActivityString = "Campgaw Greens";
+        String otherActivityString = "Campgaw Black";
         onView(withId(R.id.start_round_button)).perform(click());
         onView(withText(otherActivityString)).check(matches(notNullValue()));
     }

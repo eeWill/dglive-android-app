@@ -1,10 +1,12 @@
-package com.evwill.dglive;
+package com.evwill.dglive.models;
+
+import com.evwill.dglive.models.Hole;
 
 public class Score {
     private int mScore;
     private Hole mHole;
 
-    Score (int score, Hole hole) {
+    public Score(int score, Hole hole) {
         mScore = score;
         mHole = hole;
     }

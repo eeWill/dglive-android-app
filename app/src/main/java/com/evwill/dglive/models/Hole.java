@@ -1,4 +1,4 @@
-package com.evwill.dglive;
+package com.evwill.dglive.models;
 
 public class Hole {
     private int mPar;
@@ -6,7 +6,7 @@ public class Hole {
     private String mName;
     private int mOrder;
 
-    Hole(String name, int par) {
+    public Hole(String name, int par) {
         mName = name;
         mPar = par;
     }
