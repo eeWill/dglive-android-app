@@ -6,8 +6,9 @@ public class Player {
     private String mName;
     private List<Score> mScores;
 
-    public List<Score> getScores() {
-        return mScores;
+    public Player(String name, List<Score> scores) {
+        mScores = scores;
+        mName = name;
     }
 
     public void setScores(List<Score> scores) {
@@ -24,5 +25,9 @@ public class Player {
 
     public void setScoreByHoleNumber(int holeNumber, Score score) {
         mScores.set(holeNumber, score);
+    }
+
+    public List<Score> getScores() {
+        return mScores;
     }
 }

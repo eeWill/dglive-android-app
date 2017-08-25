@@ -29,7 +29,7 @@ public class MainActivityPresenterTest {
     @Test
     public void startRoundActivity() throws Exception {
         presenter.startRoundActivity();
-        Mockito.verify(view).startSettingsActivity();
+        Mockito.verify(view).startRoundActivity();
     }
 
 }

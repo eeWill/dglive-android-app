@@ -1,11 +1,12 @@
 package com.evwill.dglive.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.x;
 
 public class Round {
-    private List<Player> mPlayers;
+    private List<Player> mPlayers = new ArrayList<>();
     private Course mCourse;
     private int currentHoleNumber = 1;
 
@@ -52,5 +53,9 @@ public class Round {
 
     private int courseLength() {
         return getCourse().getHoles().size();
+    }
+
+    public void addPlayer(Player player) {
+        mPlayers.add(player);
     }
 }

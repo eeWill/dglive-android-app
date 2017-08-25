@@ -1,7 +1,10 @@
 package com.evwill.dglive;
 
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,20 +19,23 @@ import com.evwill.dglive.models.Score;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RoundActivity extends ListActivity implements AdapterHandler {
+public class RoundActivity extends ListActivity implements AdapterHandler, AddPlayerDialog.OnPlayerNameSubmitListener {
 
     @BindView(R.id.previous_hole_button) Button previousHoleButton;
     @BindView(R.id.next_hole_button) Button nextHoleButton;
+    @BindView(R.id.add_player_button) Button addPlayerButton;
     @BindView(R.id.hole_name_label) TextView holeNameLabel;
     @BindView(R.id.hole_par_label) TextView holeParLabel;
     @BindView(R.id.course_name_label) TextView courseNameLabel;
     private Round mRound;
     private CourseGenerator courseGenerator;
+    private DialogFragment addPlayerDialog;
+    private PlayerScoreAdapter adapter;
+    private Course course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +43,14 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         setContentView(R.layout.activity_round);
         ButterKnife.bind(this);
 
-        CourseGenerator courseGenerator = new CourseGenerator();
-        Course course = courseGenerator.campgawBlacks();
+        courseGenerator = new CourseGenerator();
+        course = courseGenerator.campgawBlacks();
 
         mRound = createNewRound(course);
         courseNameLabel.setText(mRound.getCourse().getName());
 
         //List adapter for changing player scores on each hole
-        final PlayerScoreAdapter adapter = new PlayerScoreAdapter(this, mRound);
+        adapter = new PlayerScoreAdapter(this, mRound);
         setListAdapter(adapter);
 
         //Set the current hole name and par
@@ -68,43 +74,41 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
                 adapter.notifyDataSetChanged();
             }
         });
+
+        addPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPlayerDialog = new AddPlayerDialog();
+                FragmentManager fragmentManager = getFragmentManager();
+                addPlayerDialog.show(fragmentManager, "addPlayerDialog");
+            }
+        });
     }
 
     @Override
     public void incrementPlayerScore(int playerNumber) {
-        int currentHoleNumber = mRound.getCurrentHoleNumber();
+        int currentHoleNumber = mRound.getCurrentHoleNumber() - 1;
         Score score =  mRound.getPlayers().get(playerNumber).getScores().get(currentHoleNumber);
         score.incrementScore();
+        Log.i("Log", String.valueOf(score.getScore()));
         mRound.getPlayers().get(playerNumber).setScoreByHoleNumber(currentHoleNumber, score);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void decrementPlayerScore(int playerNumber) {
-        int currentHoleNumber = mRound.getCurrentHoleNumber();
+        int currentHoleNumber = mRound.getCurrentHoleNumber() - 1;
         Score score =  mRound.getPlayers().get(playerNumber).getScores().get(currentHoleNumber);
         score.decrementScore();
         mRound.getPlayers().get(playerNumber).setScoreByHoleNumber(currentHoleNumber, score);
+        adapter.notifyDataSetChanged();
     }
 
     private Round createNewRound(Course course) {
-        //Create some players, this is for development purposes
         List<Player> players = new ArrayList<>();
+        Player defaultPlayer = new Player("Evan", allThreesScoreList(course));
+        players.add(defaultPlayer);
 
-        Player player = new Player();
-        player.setName("Renee");
-        player.setScores(createDummyScores(course));
-        Player player2 = new Player();
-        player2.setName("Troy");
-        player2.setScores(createDummyScores(course));
-        Player player3 = new Player();
-        player3.setName("Evan");
-        player3.setScores(createDummyScores(course));
-
-        players.add(player);
-        players.add(player2);
-        players.add(player3);
-
-        //Create round, add player and course
         Round round = new Round();
         round.setCourse(course);
         round.setPlayers(players);
@@ -112,18 +116,18 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         return round;
     }
 
-    private List<Score> createDummyScores(Course course) {
-        List<Hole> holes = course.getHoles();
+    private List<Score> allThreesScoreList(Course course) {
+        Integer strokes = 3;
         List<Score> scores = new ArrayList<>();
-        Random random = new Random();
+        List<Hole> holes = course.getHoles();
 
-        for (int i = 1; i <= 18; i++) {
-            int randomInt = random.nextInt((6 - 2) + 1) + 2;
-            Score score = new Score(randomInt, holes.get(i - 1));
+        for (int i = 0; i < holes.size(); i++) {
+            Score score = new Score(strokes, holes.get(i));
             scores.add(score);
         }
 
         return scores;
+
     }
 
     private void setCurrentHoleInformation() {
@@ -134,6 +138,13 @@ public class RoundActivity extends ListActivity implements AdapterHandler {
         holeParLabel.setText(String.valueOf(holePar));
     }
 
+    @Override
+    public void onPlayerNameSubmit(String name) {
+        List<Score> scores = allThreesScoreList(course);
+        Player player = new Player(name, scores);
+        mRound.addPlayer(player);
+        adapter.notifyDataSetChanged();
+    }
 }
 
 

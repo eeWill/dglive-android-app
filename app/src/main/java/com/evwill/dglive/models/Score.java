@@ -1,6 +1,8 @@
 package com.evwill.dglive.models;
 
-import com.evwill.dglive.models.Hole;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Score {
     private int mScore;

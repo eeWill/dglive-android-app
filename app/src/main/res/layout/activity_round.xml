@@ -97,16 +97,16 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@android:id/empty"
+    <Button
+        android:id="@+id/add_player_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add a Player!"
+        android:text="Add Player"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="166dp"/>
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="74dp"/>
 
 </android.support.constraint.ConstraintLayout>
