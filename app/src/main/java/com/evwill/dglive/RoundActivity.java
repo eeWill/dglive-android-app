@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.evwill.dglive.adapters.PlayerScoreAdapter;
@@ -25,8 +26,8 @@ import butterknife.ButterKnife;
 
 public class RoundActivity extends ListActivity implements AdapterHandler, AddPlayerDialog.OnPlayerNameSubmitListener {
 
-    @BindView(R.id.previous_hole_button) Button previousHoleButton;
-    @BindView(R.id.next_hole_button) Button nextHoleButton;
+    @BindView(R.id.previous_hole_button) ImageButton previousHoleButton;
+    @BindView(R.id.next_hole_button) ImageButton nextHoleButton;
     @BindView(R.id.add_player_button) Button addPlayerButton;
     @BindView(R.id.hole_name_label) TextView holeNameLabel;
     @BindView(R.id.hole_par_label) TextView holeParLabel;
