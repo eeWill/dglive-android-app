@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DG Live</string>
+    <string name="hole_view_button">Holes</string>
+    <string name="scorecard_button">Scorecard</string>
+    <string name="statistics_button">Statistics</string>
+    <string name="settings_button">Settings</string>
 </resources>

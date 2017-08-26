@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.evwill.dglive.AdapterHandler;
-import com.evwill.dglive.models.Player;
 import com.evwill.dglive.R;
+import com.evwill.dglive.models.Player;
 import com.evwill.dglive.models.Round;
 
 public class PlayerScoreAdapter extends BaseAdapter {
@@ -48,8 +48,8 @@ public class PlayerScoreAdapter extends BaseAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.player_score_row, null);
             holder.playerNameLabel = (TextView) view.findViewById(R.id.player_name_label);
             holder.playerScoreLabel = (TextView) view.findViewById(R.id.player_score_label);
-            holder.increaseScoreButton = (Button) view.findViewById(R.id.increase_score_button);
-            holder.decreaseScoreButton = (Button) view.findViewById(R.id.decrease_score_button);
+            holder.increaseScoreButton = (ImageButton) view.findViewById(R.id.increase_score_button);
+            holder.decreaseScoreButton = (ImageButton) view.findViewById(R.id.decrease_score_button);
             view.setTag(holder);
         }
         else {
@@ -82,8 +82,8 @@ public class PlayerScoreAdapter extends BaseAdapter {
     private static class ViewHolder {
         TextView playerNameLabel;
         TextView playerScoreLabel;
-        Button increaseScoreButton;
-        Button decreaseScoreButton;
+        ImageButton increaseScoreButton;
+        ImageButton decreaseScoreButton;
     }
 
 

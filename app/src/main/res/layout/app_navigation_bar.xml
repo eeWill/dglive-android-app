@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_navigation_bar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    app:layout_constraintBottom_toBottomOf="@id/round_layout"
+    android:background="@color/black">
+
+    <Button
+        android:id="@+id/hole_view_button"
+        style="@style/AppNavigationButtonStyle"
+        android:text="@string/hole_view_button"
+        android:background="@drawable/app_navigation_button"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/scorecard_button"
+        style="@style/AppNavigationButtonStyle"
+        android:text="@string/scorecard_button"
+        android:background="@drawable/app_navigation_button"
+        android:layout_toRightOf="@id/hole_view_button"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/statistics_button"
+        style="@style/AppNavigationButtonStyle"
+        android:text="@string/statistics_button"
+        android:background="@drawable/app_navigation_button"
+        android:layout_toRightOf="@id/scorecard_button"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/settings_button"
+        style="@style/AppNavigationButtonStyle"
+        android:text="@string/settings_button"
+        android:background="@drawable/app_navigation_button_last"
+        android:layout_toRightOf="@id/statistics_button"
+        android:layout_alignParentBottom="true"/>
+
+
+</app:RelativeLayout>

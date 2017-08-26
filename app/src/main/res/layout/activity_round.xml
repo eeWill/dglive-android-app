@@ -5,98 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/round_layout"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     tools:context="com.evwill.dglive.RoundActivity">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:background="#004200"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
-
-    <ImageButton
-        android:id="@+id/previous_hole_button"
-        style="@style/HoleNavigationButtonStyle"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_previous_hole" />
-
-    <TextView
-        android:id="@+id/hole_text"
-        android:layout_marginLeft="15dp"
-        style="@style/HoleNavigationText"
-        android:text="Hole "
-        android:layout_toRightOf="@+id/previous_hole_button" />
-
-    <TextView
-        android:id="@+id/hole_name_label"
-        style="@style/HoleNavigationText"
-        android:layout_toRightOf="@+id/hole_text"/>
-
-    <TextView
-        android:id="@+id/par_text"
-        style="@style/HoleNavigationText"
-        android:textColor="#fff"
-        android:text="par "
-        android:layout_toLeftOf="@+id/hole_par_label" />
-
-    <TextView
-        android:id="@+id/hole_par_label"
-        style="@style/HoleNavigationText"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/next_hole_button"/>
-
-    <ImageButton
-        android:id="@+id/next_hole_button"
-        android:layout_alignParentRight="true"
-        style="@style/HoleNavigationButtonStyle"
-        android:src="@drawable/ic_next_hole" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/course_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Course Name"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintVertical_bias="0.032"/>
+    <include layout="@layout/hole_navigation_bar" />
+    <include android:id="@+id/round_settings_bar" layout="@layout/round_settings_bar" />
 
     <ListView
         android:id="@android:id/list"
-        android:layout_width="0dp"
-        android:layout_height="276dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="1.0"/>
-
-    <Button
-        android:id="@+id/add_player_button"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Add Player"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/round_settings_bar"
+        android:dividerHeight="5dp"
         />
+
+    <include layout="@layout/app_navigation_bar"/>
 
 </android.support.constraint.ConstraintLayout>
