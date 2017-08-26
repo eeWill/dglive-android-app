@@ -12,18 +12,49 @@
     tools:context="com.evwill.dglive.RoundActivity">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:paddingLeft="16dp"
-      android:paddingRight="16dp"
-      android:orientation="horizontal"
-      android:background="#004200">
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:background="#004200"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
     <ImageButton
         android:id="@+id/previous_hole_button"
         style="@style/HoleNavigationButtonStyle"
         android:layout_alignParentLeft="true"
         android:src="@drawable/ic_previous_hole" />
+
+    <TextView
+        android:id="@+id/hole_text"
+        android:layout_marginLeft="15dp"
+        style="@style/HoleNavigationText"
+        android:text="Hole "
+        android:layout_toRightOf="@+id/previous_hole_button" />
+
+    <TextView
+        android:id="@+id/hole_name_label"
+        style="@style/HoleNavigationText"
+        android:layout_toRightOf="@+id/hole_text"/>
+
+    <TextView
+        android:id="@+id/par_text"
+        style="@style/HoleNavigationText"
+        android:textColor="#fff"
+        android:text="par "
+        android:layout_toLeftOf="@+id/hole_par_label" />
+
+    <TextView
+        android:id="@+id/hole_par_label"
+        style="@style/HoleNavigationText"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/next_hole_button"/>
 
     <ImageButton
         android:id="@+id/next_hole_button"
@@ -32,31 +63,6 @@
         android:src="@drawable/ic_next_hole" />
 
     </RelativeLayout>
-    <TextView
-        android:id="@+id/hole_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hole Name"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.072"
-        app:layout_constraintHorizontal_bias="0.501"/>
-
-    <TextView
-        android:id="@+id/hole_par_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hole Par"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"/>
 
     <TextView
         android:id="@+id/course_name_label"
@@ -91,7 +97,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="74dp"/>
+        />
 
 </android.support.constraint.ConstraintLayout>
