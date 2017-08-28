@@ -3,6 +3,7 @@ package com.evwill.dglive;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.ListActivity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.evwill.dglive.adapters.PlayerScoreAdapter;
 import com.evwill.dglive.data.CourseGenerator;
+import com.evwill.dglive.db.PlayerDataSource;
 import com.evwill.dglive.models.Course;
 import com.evwill.dglive.models.Hole;
 import com.evwill.dglive.models.Player;
@@ -24,25 +26,31 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RoundActivity extends ListActivity implements AdapterHandler, AddPlayerDialog.OnPlayerNameSubmitListener {
+public class RoundActivity extends ListActivity implements AdapterHandler, AddPlayerDialog.OnPlayerNameSubmitListener, AddExistingPlayerDialog.OnPlayerSelectListener {
 
     @BindView(R.id.previous_hole_button) ImageButton previousHoleButton;
     @BindView(R.id.next_hole_button) ImageButton nextHoleButton;
     @BindView(R.id.add_player_button) Button addPlayerButton;
+    @BindView(R.id.add_existing_player_button) Button addExistingPlayerButton;
     @BindView(R.id.hole_name_label) TextView holeNameLabel;
     @BindView(R.id.hole_par_label) TextView holeParLabel;
     @BindView(R.id.course_name_label) TextView courseNameLabel;
     private Round mRound;
     private CourseGenerator courseGenerator;
     private DialogFragment addPlayerDialog;
+    private DialogFragment addExistingPlayerDialog;
     private PlayerScoreAdapter adapter;
     private Course course;
+    protected PlayerDataSource playerDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
         ButterKnife.bind(this);
+
+        playerDataSource = new PlayerDataSource(RoundActivity.this);
+        playerDataSource.open();
 
         courseGenerator = new CourseGenerator();
         course = courseGenerator.campgawBlacks();
@@ -84,6 +92,33 @@ public class RoundActivity extends ListActivity implements AdapterHandler, AddPl
                 addPlayerDialog.show(fragmentManager, "addPlayerDialog");
             }
         });
+
+        addExistingPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addExistingPlayerDialog = new AddExistingPlayerDialog();
+                FragmentManager fragmentManager = getFragmentManager();
+                addExistingPlayerDialog.setArguments();
+                addExistingPlayerDialog.show(fragmentManager, "addExistingPlayerDialog");
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playerDataSource.open();
+        Cursor cursor = playerDataSource.selectAllPlayers();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        playerDataSource.close();
+    }
+
+    protected void updateList() {
+
     }
 
     @Override
@@ -146,6 +181,16 @@ public class RoundActivity extends ListActivity implements AdapterHandler, AddPl
         mRound.addPlayer(player);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onPlayerSelectSubmit() {
+        String name = "Bob";
+        List<Score> scores = allThreesScoreList(course);
+        Player player = new Player(name, scores);
+        mRound.addPlayer(player);
+        adapter.notifyDataSetChanged();
+    }
+
 }
 
 

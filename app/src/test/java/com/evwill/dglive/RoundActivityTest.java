@@ -4,6 +4,7 @@ package com.evwill.dglive;
 import android.app.Dialog;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ public class RoundActivityTest {
 
     @Before
     public void setUp() throws Exception {
-        activity = Robolectric.setupActivity(RoundActivity.class);
+            activity = Robolectric.setupActivity(RoundActivity.class);
     }
 
     @Test
@@ -44,7 +45,6 @@ public class RoundActivityTest {
         ListView playerListView = (ListView) activity.findViewById(android.R.id.list);
         EditText nameInput = (EditText) dialog.findViewById(R.id.player_name_input);
 
-
         nameInput.setText("Evan");
         playerSubmitButton.performClick();
 
@@ -52,9 +52,19 @@ public class RoundActivityTest {
     }
 
     @Test
+    public void testExistingPlayerDialogHasTitle() throws Exception {
+        Button addExistingPlayer = (Button) activity.findViewById(R.id.add_existing_player_button);
+        addExistingPlayer.performClick();
+
+        Dialog dialog = ShadowDialog.getLatestDialog();
+        TextView title = (TextView) dialog.findViewById(R.id.add_existing_player_title);
+        assertEquals("Add Existing Player", title.getText());
+    }
+
+    @Test
     public void testIncrementScoreButtonUpdatesTextView() throws Exception {
         String newScore = "4";
-        Button increaseScoreButton = (Button) activity.findViewById(R.id.increase_score_button);
+        ImageButton increaseScoreButton = (ImageButton) activity.findViewById(R.id.increase_score_button);
         TextView results = (TextView) activity.findViewById(R.id.player_score_label);
         increaseScoreButton.performClick();
         assertEquals(newScore, results.getText());
@@ -63,7 +73,7 @@ public class RoundActivityTest {
     @Test
     public void testDecrementScoreButtonUpdatesText() throws Exception {
         String newScore = "2";
-        Button decreaseScoreButton = (Button) activity.findViewById(R.id.decrease_score_button);
+        ImageButton decreaseScoreButton = (ImageButton) activity.findViewById(R.id.decrease_score_button);
         TextView results = (TextView) activity.findViewById(R.id.player_score_label);
         decreaseScoreButton.performClick();
         assertEquals(newScore, results.getText());
@@ -72,8 +82,8 @@ public class RoundActivityTest {
     @Test
     public void testDecrementScoreDoesNotUpdateNextHole() throws Exception {
         String newScore = "3";
-        Button decreaseScoreButton = (Button) activity.findViewById(R.id.decrease_score_button);
-        Button nextHoleButton = (Button) activity.findViewById(R.id.next_hole_button);
+        ImageButton decreaseScoreButton = (ImageButton) activity.findViewById(R.id.decrease_score_button);
+        ImageButton nextHoleButton = (ImageButton) activity.findViewById(R.id.next_hole_button);
         TextView results = (TextView) activity.findViewById(R.id.player_score_label);
         decreaseScoreButton.performClick();
         nextHoleButton.performClick();
@@ -83,8 +93,8 @@ public class RoundActivityTest {
     @Test
     public void testIncrementScoreDoesNotUpdateNextHole() throws Exception {
         String newScore = "3";
-        Button decreaseScoreButton = (Button) activity.findViewById(R.id.increase_score_button);
-        Button nextHoleButton = (Button) activity.findViewById(R.id.next_hole_button);
+        ImageButton decreaseScoreButton = (ImageButton) activity.findViewById(R.id.increase_score_button);
+        ImageButton nextHoleButton = (ImageButton) activity.findViewById(R.id.next_hole_button);
         TextView results = (TextView) activity.findViewById(R.id.player_score_label);
         decreaseScoreButton.performClick();
         nextHoleButton.performClick();

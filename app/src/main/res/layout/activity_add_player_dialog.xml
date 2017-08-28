@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="125dp"
-    android:layout_margin="30dp"
-    android:background="@android:drawable/screen_background_light"
-    android:padding="15dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:background="@android:drawable/screen_background_light"
+                android:padding="15dp">
 
 
     <EditText
@@ -17,12 +17,13 @@
         android:inputType="textPersonName"
         />
 
-<Button
-    android:id="@+id/player_name_submit"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/player_name_input"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="14dp"
-    android:text="Submit"/>
+    <Button
+        android:id="@+id/player_name_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/player_name_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Submit"/>
+
 </RelativeLayout>
