@@ -1,6 +1,9 @@
 package com.evwill.dglive.models;
 
-public class Hole {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Hole implements Parcelable {
     private int mPar;
     private int mLength;
     private String mName;
@@ -42,4 +45,37 @@ public class Hole {
     public void setOrder(int order) {
         mOrder = order;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mPar);
+        dest.writeInt(mLength);
+        dest.writeString(mName);
+        dest.writeInt(mOrder);
+    }
+
+    public Hole(Parcel in) {
+        mPar = in.readInt();
+        mLength = in.readInt();
+        mName = in.readString();
+        mOrder = in.readInt();
+    }
+
+    public static final Creator<Hole> CREATOR = new Creator<Hole>() {
+        @Override
+        public Hole createFromParcel(Parcel source) {
+            return new Hole(source);
+        }
+
+        @Override
+        public Hole[] newArray(int size) {
+            return new Hole[size];
+        }
+
+    };
 }

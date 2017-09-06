@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.evwill.dglive.listener.OnPlayerNameSubmitListener;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -18,10 +20,6 @@ public class AddPlayerDialog extends DialogFragment {
     @BindView(R.id.player_name_submit) Button submitPlayerButton;
     @BindView(R.id.player_name_input)
     EditText playerName;
-
-    public static interface OnPlayerNameSubmitListener {
-        public abstract void onPlayerNameSubmit(String name);
-    }
 
     private OnPlayerNameSubmitListener mListener;
 

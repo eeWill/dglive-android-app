@@ -12,12 +12,10 @@
         android:text="Add Existing Player"
         android:id="@+id/add_existing_player_title"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:id="@+id/add_player_list"
         android:layout_height="match_parent"
-        android:layout_below="@+id/add_existing_player_title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:id="@+id/recyclerView" />
+
 
 </RelativeLayout>

@@ -7,4 +7,5 @@
     <color name="black">#000000</color>
     <color name="strokeChangeBackground">#3B7B20</color>
     <color name="roundSettingsBarBackground">#EAEAEA</color>
+    <color name="playerListItemBackground">#FFA500</color>
 </resources>

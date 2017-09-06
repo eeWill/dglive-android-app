@@ -1,7 +1,11 @@
 package com.evwill.dglive;
 
+import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.ViewAssertion;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.evwill.dglive.models.Player;
 
@@ -14,10 +18,13 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.core.Is.is;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -79,16 +86,40 @@ public class RoundActivityUITest {
         onView(withId(R.id.player_name_submit)).check(matches(withText(buttonText)));
     }
 
+    /* Tests for the add existing player dialog */
+    @Test
+    public void testThatTheDialogHasDefaultPlayer() throws Exception {
+        String name = "Evan";
+        onView(withId(R.id.add_existing_player_button)).perform(click());
+        onView(withRecyclerView(R.id.recyclerView).atPosition(0))
+                .check(matches(hasDescendant(withText(name))));
+    }
+
+    @Test
+    public void testThatTheDialogHasMultiplePlayers() throws Exception {
+        clickAddPlayerDialogAndSubmitName("Troy");
+        onView(withId(R.id.add_existing_player_button)).perform(click());
+        onView(withId(R.id.recyclerView)).check(new RecyclerViewItemCountAssertion(2));
+    }
+
+    @Test
+    public void testClickingAnExistingPlayerAddsThemToRoundPlayerList() throws Exception {
+        String name = "Evan";
+        onView(withId(R.id.add_existing_player_button)).perform(click());
+        onView(withRecyclerView(R.id.recyclerView).atPosition(0)).perform(click());
+        onData(instanceOf(Player.class))
+                .onChildView(allOf(withId(R.id.player_name_label), withText(name)))
+                .check(matches(withText(name)));
+    }
+
     @Test
     public void testSubmittingPlayerNameAddsPlayerToList() throws Exception {
-        String playerName = "Name";
-        onView(withId(R.id.add_player_button)).perform(click());
-        onView(withId(R.id.player_name_input)).perform(typeText(playerName));
-        onView(withId(R.id.player_name_submit)).perform(click());
+        String name = "Evan";
+        clickAddPlayerDialogAndSubmitName(name);
         onData(instanceOf(Player.class))
                 .atPosition(1)
-                .onChildView(allOf(withId(R.id.player_name_label), withText("Name")))
-                .check(matches(withText("Name")));
+                .onChildView(allOf(withId(R.id.player_name_label), withText(name)))
+                .check(matches(withText(name)));
     }
 
     @Test
@@ -126,6 +157,34 @@ public class RoundActivityUITest {
         }
     }
 
+    private void clickAddPlayerDialogAndSubmitName(String name) {
+        onView(withId(R.id.add_player_button)).perform(click());
+        onView(withId(R.id.player_name_input)).perform(typeText(name));
+        onView(withId(R.id.player_name_submit)).perform(click());
+    }
 
+    // Convenience helper
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
+    }
+
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
+        private final int expectedCount;
+
+        public RecyclerViewItemCountAssertion(int expectedCount) {
+            this.expectedCount = expectedCount;
+        }
+
+        @Override
+        public void check(View view, NoMatchingViewException noViewFoundException) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
+
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            assertThat(adapter.getItemCount(), is(expectedCount));
+        }
+    }
 
 }

@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.evwill.dglive.adapters.PlayerScoreAdapter;
 import com.evwill.dglive.data.CourseGenerator;
 import com.evwill.dglive.db.PlayerDataSource;
+import com.evwill.dglive.listener.OnPlayerNameSelectListener;
+import com.evwill.dglive.listener.OnPlayerNameSubmitListener;
 import com.evwill.dglive.models.Course;
 import com.evwill.dglive.models.Hole;
 import com.evwill.dglive.models.Player;
@@ -26,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RoundActivity extends ListActivity implements AdapterHandler, AddPlayerDialog.OnPlayerNameSubmitListener, AddExistingPlayerDialog.OnPlayerSelectListener {
+public class RoundActivity extends ListActivity implements AdapterHandler, OnPlayerNameSubmitListener, OnPlayerNameSelectListener {
 
     @BindView(R.id.previous_hole_button) ImageButton previousHoleButton;
     @BindView(R.id.next_hole_button) ImageButton nextHoleButton;
@@ -98,7 +101,10 @@ public class RoundActivity extends ListActivity implements AdapterHandler, AddPl
             public void onClick(View v) {
                 addExistingPlayerDialog = new AddExistingPlayerDialog();
                 FragmentManager fragmentManager = getFragmentManager();
-                addExistingPlayerDialog.setArguments();
+                Bundle bundle = new Bundle();
+
+                bundle.putParcelableArrayList("Players", (ArrayList<? extends Parcelable>) mRound.getPlayers());
+                addExistingPlayerDialog.setArguments(bundle);
                 addExistingPlayerDialog.show(fragmentManager, "addExistingPlayerDialog");
             }
         });
@@ -142,7 +148,7 @@ public class RoundActivity extends ListActivity implements AdapterHandler, AddPl
 
     private Round createNewRound(Course course) {
         List<Player> players = new ArrayList<>();
-        Player defaultPlayer = new Player("Evan", allThreesScoreList(course));
+        Player defaultPlayer = createPlayer("Evan");
         players.add(defaultPlayer);
 
         Round round = new Round();
@@ -150,6 +156,10 @@ public class RoundActivity extends ListActivity implements AdapterHandler, AddPl
         round.setPlayers(players);
 
         return round;
+    }
+
+    private Player createPlayer(String name) {
+        return new Player(name, allThreesScoreList(course));
     }
 
     private List<Score> allThreesScoreList(Course course) {
@@ -176,21 +186,28 @@ public class RoundActivity extends ListActivity implements AdapterHandler, AddPl
 
     @Override
     public void onPlayerNameSubmit(String name) {
-        List<Score> scores = allThreesScoreList(course);
-        Player player = new Player(name, scores);
-        mRound.addPlayer(player);
-        adapter.notifyDataSetChanged();
+        createPlayerAndUpdateList(name);
     }
 
     @Override
-    public void onPlayerSelectSubmit() {
-        String name = "Bob";
+    public void onPlayerNameSelect(String name) {
+        createPlayerAndUpdateList(name);
+    }
+
+    private void createPlayerAndUpdateList(String name) {
+        Player player = createPlayerByName(name);
+        addPlayerToRoundAndUpdateList(player);
+    }
+
+    private Player createPlayerByName(String name) {
         List<Score> scores = allThreesScoreList(course);
-        Player player = new Player(name, scores);
+        return new Player(name, scores);
+    }
+
+    private void addPlayerToRoundAndUpdateList(Player player) {
         mRound.addPlayer(player);
         adapter.notifyDataSetChanged();
     }
-
 }
 
 
