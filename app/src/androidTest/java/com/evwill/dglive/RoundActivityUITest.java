@@ -2,6 +2,7 @@ package com.evwill.dglive;
 
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewAssertion;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
@@ -106,10 +107,13 @@ public class RoundActivityUITest {
     public void testClickingAnExistingPlayerAddsThemToRoundPlayerList() throws Exception {
         String name = "Evan";
         onView(withId(R.id.add_existing_player_button)).perform(click());
-        onView(withRecyclerView(R.id.recyclerView).atPosition(0)).perform(click());
+        onView(withId(R.id.recyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onData(instanceOf(Player.class))
+                .atPosition(1)
                 .onChildView(allOf(withId(R.id.player_name_label), withText(name)))
                 .check(matches(withText(name)));
+
     }
 
     @Test

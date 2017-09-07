@@ -192,6 +192,7 @@ public class RoundActivity extends ListActivity implements AdapterHandler, OnPla
     @Override
     public void onPlayerNameSelect(String name) {
         createPlayerAndUpdateList(name);
+        addExistingPlayerDialog.dismiss();
     }
 
     private void createPlayerAndUpdateList(String name) {
