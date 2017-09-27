@@ -4,5 +4,6 @@ public interface MainActivityView {
 
     void startRoundActivity();
     void startSettingsActivity();
+    void startPlayersActivity();
 
 }

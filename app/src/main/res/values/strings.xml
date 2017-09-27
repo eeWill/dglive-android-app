@@ -4,4 +4,6 @@
     <string name="scorecard_button">Scorecard</string>
     <string name="statistics_button">Statistics</string>
     <string name="settings_button">Settings</string>
+    <string name="quick_start_round">Quick Start Round</string>
+    <string name="settings_button_text">Settings</string>
 </resources>

@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     public Button startRoundButton;
     public Button settingsPageButton;
+    public Button startPlayersActivityButton;
 
     MainActivityPresenter presenter;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
         startRoundButton = (Button)findViewById(R.id.start_round_button);
         settingsPageButton = (Button)findViewById(R.id.settings_button);
+        startPlayersActivityButton = (Button)findViewById(R.id.start_players_activity_button);
 
         startRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +35,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
             @Override
             public void onClick(View v) {
                 presenter.startSettingsActivity();
+            }
+        });
+
+        startPlayersActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.startPlayersActivity();
             }
         });
     }
@@ -49,5 +58,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         startActivity(intent);
     }
 
+    @Override
+    public void startPlayersActivity() {
+        Intent intent = new Intent(this, PlayersActivity.class);
+        startActivity(intent);
+    }
 
 }

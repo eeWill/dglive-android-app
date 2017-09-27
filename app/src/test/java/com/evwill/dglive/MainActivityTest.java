@@ -39,4 +39,18 @@ public class MainActivityTest {
         assertTrue(expectedIntent.filterEquals(actualIntent));
     }
 
+    @Test
+    public void testPlayerActivityStarts() throws Exception {
+        Class playersActivity = PlayersActivity.class;
+        Intent expectedIntent = new Intent(activity, playersActivity);
+
+        // Act
+        activity.startPlayersActivityButton.performClick();
+
+        // Assert
+        ShadowActivity shadowActivity = Shadows.shadowOf(activity);
+        Intent actualIntent = shadowActivity.getNextStartedActivity();
+        assertTrue(expectedIntent.filterEquals(actualIntent));
+    }
+
 }

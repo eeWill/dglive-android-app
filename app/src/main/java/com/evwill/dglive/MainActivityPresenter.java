@@ -14,4 +14,8 @@ public class MainActivityPresenter {
     public void startRoundActivity() {
         view.startRoundActivity();
     }
+
+    public void startPlayersActivity() {
+        view.startPlayersActivity();
+    }
 }

@@ -2,7 +2,6 @@ package com.evwill.dglive;
 
 
 import android.app.Dialog;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -60,19 +59,6 @@ public class RoundActivityTest {
         assertEquals("Add Existing Player", title.getText());
     }
 
-    @Test
-    public void testExistingPlayerDialogHasPlayersPopulated() throws Exception {
-        clickAddExistingPlayerButton();
-        Dialog dialog = ShadowDialog.getLatestDialog();
-        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recyclerView);
-        recyclerView.measure(0, 0);
-        recyclerView.layout(0, 0, 100, 10000);
-        recyclerView.findViewHolderForAdapterPosition(0).itemView.performClick();
-
-        ListView playerListView = (ListView) activity.findViewById(android.R.id.list);
-        assertEquals(2, playerListView.getChildCount());
-
-    }
 
     @Test
     public void testIncrementScoreButtonUpdatesTextView() throws Exception {

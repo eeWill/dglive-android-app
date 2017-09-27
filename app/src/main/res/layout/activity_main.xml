@@ -34,6 +34,18 @@
         app:layout_constraintVertical_bias="0.777"/>
 
     <Button
+        android:id="@+id/quick_start_round"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/quick_start_round"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="8dp"
+        app:layout_constraintVertical_bias="0.681"/>
+
+    <Button
         android:id="@+id/settings_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,7 +54,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="8dp"
-        android:text="Settings"
+        android:text="@string/settings_button_text"
+        app:layout_constraintVertical_bias="0.881"/>
+
+    <Button
+        android:id="@+id/start_players_activity_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/settings_button"
+        android:layout_margin="8dp"
+        android:text="Players"
         app:layout_constraintVertical_bias="0.881"/>
 
 </android.support.constraint.ConstraintLayout>

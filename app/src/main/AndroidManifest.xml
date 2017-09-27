@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".AddPlayerDialog">
         </activity>
+        <activity android:name=".PlayersActivity">
+        </activity>
     </application>
 
 </manifest>
