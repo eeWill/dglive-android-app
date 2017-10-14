@@ -6,38 +6,45 @@
     android:layout_height="50dp"
     android:layout_alignParentBottom="true"
     app:layout_constraintBottom_toBottomOf="@id/round_layout"
-    android:background="@color/black">
+    android:background="@color/primaryDark">
 
-    <Button
-        android:id="@+id/hole_view_button"
-        style="@style/AppNavigationButtonStyle"
-        android:text="@string/hole_view_button"
-        android:background="@drawable/app_navigation_button"
-        android:layout_alignParentBottom="true"/>
+    <ImageButton
+        android:contentDescription="@string/previous_hole_button"
+        android:id="@+id/previous_hole_button"
+        style="@style/HoleNavigationButtonStyle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/ic_previous_hole" />
 
-    <Button
-        android:id="@+id/scorecard_button"
-        style="@style/AppNavigationButtonStyle"
-        android:text="@string/scorecard_button"
-        android:background="@drawable/app_navigation_button"
-        android:layout_toRightOf="@id/hole_view_button"
-        android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/hole_text"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        style="@style/HoleNavigationText"
+        android:text="@string/previous_hole_text"
+        android:layout_toRightOf="@+id/previous_hole_button"
+        android:layout_toEndOf="@+id/previous_hole_button" />
 
-    <Button
-        android:id="@+id/statistics_button"
-        style="@style/AppNavigationButtonStyle"
-        android:text="@string/statistics_button"
-        android:background="@drawable/app_navigation_button"
-        android:layout_toRightOf="@id/scorecard_button"
-        android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/hole_par_label"
+        style="@style/HoleNavigationText"
+        android:text="@string/next_hole_text"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/next_hole_button"
+        android:layout_toStartOf="@+id/next_hole_button" />
 
-    <Button
-        android:id="@+id/settings_button"
-        style="@style/AppNavigationButtonStyle"
-        android:text="@string/settings_button"
-        android:background="@drawable/app_navigation_button_last"
-        android:layout_toRightOf="@id/statistics_button"
-        android:layout_alignParentBottom="true"/>
+    <ImageButton
+        android:id="@+id/next_hole_button"
+        android:contentDescription="@string/next_hole_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        style="@style/HoleNavigationButtonStyle"
+        android:src="@drawable/ic_next_hole" />
 
 
 </RelativeLayout>

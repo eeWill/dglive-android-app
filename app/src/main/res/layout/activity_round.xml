@@ -19,10 +19,12 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:divider="@drawable/player_score_row_divider"
+        android:dividerHeight="2dp"
+        android:footerDividersEnabled="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/round_settings_bar"
-        android:dividerHeight="5dp"
         />
 
     <include layout="@layout/app_navigation_bar"/>

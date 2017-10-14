@@ -9,28 +9,27 @@
     android:paddingRight="16dp"
     android:orientation="horizontal"
     android:layout_centerVertical="true"
-    android:background="#004200"
+    android:background="@color/primaryDark"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     tools:layout_editor_absoluteY="0dp"
     tools:layout_editor_absoluteX="8dp">
 
-    <ImageButton
-        android:id="@+id/previous_hole_button"
-        style="@style/HoleNavigationButtonStyle"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/ic_previous_hole" />
 
     <TextView
         android:id="@+id/hole_text"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         style="@style/HoleNavigationText"
         android:text="Hole "
-        android:layout_toRightOf="@+id/previous_hole_button" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
 
     <TextView
         android:id="@+id/hole_name_label"
         style="@style/HoleNavigationText"
+        android:layout_toEndOf="@+id/hole_text"
         android:layout_toRightOf="@+id/hole_text"/>
 
     <TextView
@@ -45,19 +44,17 @@
         android:id="@+id/par_text"
         style="@style/HoleNavigationText"
         android:textColor="#fff"
-        android:text="par "
-        android:layout_toLeftOf="@+id/hole_par_label" />
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/course_name_label"
+        android:layout_toEndOf="@id/course_name_label"
+        android:text="par " />
 
     <TextView
         android:id="@+id/hole_par_label"
         style="@style/HoleNavigationText"
         android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/next_hole_button"/>
-
-    <ImageButton
-        android:id="@+id/next_hole_button"
-        android:layout_alignParentRight="true"
-        style="@style/HoleNavigationButtonStyle"
-        android:src="@drawable/ic_next_hole" />
+        android:layout_toRightOf="@id/par_text"
+        android:layout_toEndOf="@id/par_text"
+        />
 
 </RelativeLayout>

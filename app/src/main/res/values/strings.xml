@@ -6,4 +6,10 @@
     <string name="settings_button">Settings</string>
     <string name="quick_start_round">Quick Start Round</string>
     <string name="settings_button_text">Settings</string>
+    <string name="previous_hole_text">Previous</string>
+    <string name="next_hole_text">Next</string>
+    <string name="previous_hole_button">Goes to previous hole</string>
+    <string name="next_hole_button">Goes to next hole</string>
+    <string name="decrease_score_button">Decrease Score</string>
+    <string name="increase_score_button">Increase Score</string>
 </resources>

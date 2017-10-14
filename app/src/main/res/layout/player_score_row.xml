@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="15dp"
-    android:paddingBottom="15dp"
-    android:background="#B4E0A1">
+    android:paddingBottom="15dp" >
 
     <TextView
         android:id="@+id/player_name_label"
@@ -12,23 +12,26 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:text="Player Name"
+        android:textColor="#000"
+        tools:text="Player Name"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
     <ImageButton
-        style="@style/StrokeChangeButton"
         android:id="@+id/increase_score_button"
-        android:src="@drawable/ic_add_stroke"
-        android:text="Plus"
-        android:layout_marginLeft="30dp"
+        style="@style/StrokeChangeButton"
         android:layout_alignBaseline="@+id/decrease_score_button"
         android:layout_alignBottom="@+id/decrease_score_button"
-        android:layout_toLeftOf="@+id/player_score_label" />
-
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_toLeftOf="@+id/player_score_label"
+        android:layout_toStartOf="@+id/player_score_label"
+        android:contentDescription="@string/increase_score_button"
+        android:src="@drawable/ic_add_stroke"
+        tools:text="Plus"/>
 
     <TextView
         android:id="@+id/player_score_label"
@@ -37,20 +40,22 @@
         android:layout_alignBaseline="@+id/increase_score_button"
         android:layout_alignBottom="@+id/increase_score_button"
         android:layout_centerVertical="true"
-        android:textSize="30dp"
+        android:textSize="36sp"
+        android:textColor="@color/black"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textStyle="bold"
         android:layout_toLeftOf="@+id/decrease_score_button"
-        android:text="Score"/>
-
+        android:layout_toStartOf="@+id/decrease_score_button" />
 
     <ImageButton
+        android:contentDescription="@string/decrease_score_button"
         style="@style/StrokeChangeButton"
         android:id="@+id/decrease_score_button"
         android:src="@drawable/ic_subtract_stroke"
         android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_alignParentRight="true"
-        android:text="Minus"/>
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
